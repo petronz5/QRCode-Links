@@ -38,8 +38,8 @@ def index():
             conn = get_db_connection()
             cur = conn.cursor()
             cur.execute(
-                "INSERT INTO qrcodes (site_name, qr_code) VALUES (%s, %s)",
-                (site_name, psycopg2.Binary(qr_bytes))
+                "INSERT INTO qrcodes (site_name, qr_code, url) VALUES (%s, %s, %s)",
+                (site_name, psycopg2.Binary(qr_bytes), url)
             )
             conn.commit()
             cur.close()
@@ -52,7 +52,7 @@ def index():
     # Recupera tutti i record dal db
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT id, site_name FROM qrcodes ORDER BY id DESC")
+    cur.execute("SELECT id, site_name, url FROM qrcodes ORDER BY id DESC")
     records = cur.fetchall()
     cur.close()
     conn.close()
