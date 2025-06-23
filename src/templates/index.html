@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Generatore QR Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Form in alto -->
+        <div class="form-section">
+            <h2>Generatore QR Code</h2>
+            <form method="post">
+                <input type="text" name="site_name" placeholder="Nome sito..." required>
+                <input type="text" name="url" placeholder="Inserisci il link..." required>
+                <button type="submit">Genera QR</button>
+            </form>
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+            {% if qr_generated %}
+                <h3>QR Code generato e salvato!</h3>
+            {% endif %}
+        </div>
+
+        <!-- Griglia delle card -->
+        <h3>Storico QR Code:</h3>
+        <div class="card-grid">
+            {% for id, site_name in records %}
+                <div class="card">
+                    <strong>{{ site_name }}</strong><br>
+                    <img src="{{ url_for('qrcode_img', qr_id=id) }}" alt="QR Code" width="120"><br>
+                </div>
+            {% else %}
+                <div>Nessun QR code salvato.</div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
