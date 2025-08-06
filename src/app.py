@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, send_file, redirect, url_for, session, flash
-from utils import generate_qr_code, is_valid_url
+from src.utils import generate_qr_code, is_valid_url
 import psycopg2
 import io
 import os
