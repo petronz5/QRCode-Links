@@ -5,6 +5,7 @@
     <title>Generatore QR Code</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
 </head>
 <body>
     <div class="container">
@@ -27,6 +28,14 @@
         <!-- Griglia delle card -->
         <h3>Storico QR Code:</h3>
         <div class="card-grid">
+            {% set icons = {
+                'linkedin': 'fa-brands fa-linkedin',
+                'revolut': 'fa-solid fa-credit-card',
+                'satispay': 'fa-solid fa-money-bill-wave',
+                'instagram': 'fa-brands fa-instagram',
+                'snapchat': 'fa-brands fa-snapchat',
+                'facebook': 'fa-brands fa-facebook'
+            } %}
             {% for id, site_name, url in records %}
                 <div class="card">
                     <div class="card-inner">
@@ -36,7 +45,8 @@
                             </button>
                             <div class="card-link">
                                 <a href="{{ url }}" target="_blank">
-                                    <i class="fa-solid fa-globe fa-3x"></i>
+                                    {% set icon = icons.get(site_name|lower, 'fa-solid fa-globe') %}
+                                    <i class="{{ icon }} fa-3x"></i>
                                 </a>
                             </div>
                             <strong>{{ site_name }}</strong>
@@ -56,5 +66,10 @@
         </div>
     </div>
     <script src="{{ url_for('static', filename='toggle.js') }}"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('{{ url_for('static', filename='sw.js') }}');
+        }
+    </script>
 </body>
 </html>

@@ -29,8 +29,8 @@ body{
     text-align: center;             /* Testo centrato */
     background: #fafafa;
     perspective: 1000px;
-    width: 220px;
-    height: 250px;
+    width: 180px;
+    height: 200px;
     position: relative;
     margin: auto;
 }
