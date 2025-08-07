@@ -17,11 +17,11 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 DB_PARAMS = {
-    "host": "db.tnupavqdngycwlruixmy.supabase.co",
-    "database": "postgres",
-    "user": "postgres",
-    "password": "Davide0902!",
-    "port": "5432"
+    "host": os.environ.get("DB_HOST", "db.tnupavqdngycwlruixmy.supabase.co"),
+    "database": os.environ.get("DB_NAME", "postgres"),
+    "user": os.environ.get("DB_USER", "postgres"),
+    "password": os.environ.get("DB_PASSWORD", ""),  # Password vuota come default
+    "port": os.environ.get("DB_PORT", "5432")
 }
 
 def get_db_connection():
